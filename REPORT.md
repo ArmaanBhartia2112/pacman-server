@@ -1,16 +1,9 @@
 # Multiplayer Pacman — Performance & Protocol Report
 
-**Generated:** 2026-08-31 01:33:47
+
 
 ---
 
-## Resume Bullets (Filled Values)
-
-> Built an authoritative multiplayer Pacman server in C using a custom binary protocol, broadcasting real-time state snapshots to **8 clients** at **25.0Hz** under **100ms** injected latency.
-
-> Implemented TCP message framing and UDP sequence-numbering to discard stale/out-of-order packets, sustaining correct client state across **8 message types** under **100.0% correct state** under **10.0%** simulated packet loss.
-
----
 
 ## Metrics Table
 
@@ -99,18 +92,6 @@
 
 ---
 
-## Architecture Summary
 
-```
-/protocol/   libprotocol.a — wire format, framing, byte-order (single source of truth)
-/server/     authoritative simulation: epoll/select loop, ghost AI, pellet state, scores
-/client/     SDL2 rendering, interpolation between snapshots, TCP/UDP networking
-/tests/      headless load tester, network conditioning script
-```
 
-### Key Properties
-- **Single-threaded server** using `select()` (macOS) / `epoll` (Linux)
-- **Fixed 25Hz simulation tick** regardless of client count
-- **Interpolated rendering** at 60Hz between server ticks (lerp between two snapshots)
-- **Ghost AI**: scatter → chase → scatter cycling with frightened state on power pellets
-- **Authoritative only**: clients send inputs, server decides outcomes — no client-side prediction
+
